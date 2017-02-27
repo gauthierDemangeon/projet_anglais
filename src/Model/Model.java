@@ -1,0 +1,40 @@
+package Model;
+
+import java.util.ArrayList;
+
+import Main.Fenetre;
+import View.Vue;
+
+public class Model {
+	Fenetre f;
+	ArrayList<Vue> views = new ArrayList<Vue>();
+	
+	public Fenetre getF() {
+		return f;
+	}
+	public void setF(Fenetre f) {
+		this.f = f;
+	}
+	public ArrayList<Vue> getViews() {
+		return views;
+	}
+	public void setViews(ArrayList<Vue> views) {
+		this.views = views;
+	}
+	
+	public Model(Fenetre f)
+	{
+		this.f = f;
+	}
+	
+	public Vue Instanceof(String typeofview)
+	{
+		for(Vue v : views)
+		{
+			String test = v.getClass().getName();
+			if(v.getClass().getName().endsWith((typeofview)))
+				return v;
+		}
+		return null;
+	}
+}
