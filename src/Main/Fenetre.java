@@ -13,7 +13,8 @@ public class Fenetre extends JFrame {
 	{
 		// Fenetre
 		this.setTitle("English Pratice");
-	    this.setSize(1280, 740);
+	    this.setSize(1280, 740);        
+	    this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setLocationRelativeTo(null);
 	    Model m = new Model(this);

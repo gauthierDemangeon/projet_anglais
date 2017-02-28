@@ -4,7 +4,7 @@ import java.awt.*;
 
 import javax.swing.*;
 
-import Controlers.mouseListener;
+import Controlers.ButtonMouseControler;
 import Model.Model;
 
 public class VuePart1 extends ImagePanel implements Vue {
@@ -19,7 +19,7 @@ public class VuePart1 extends ImagePanel implements Vue {
 		back.setOpaque(false);
 		back.setBorderPainted(false);
 		back.setContentAreaFilled(false);
-		back.addMouseListener(new mouseListener(m));
+		back.addMouseListener(new ButtonMouseControler(m));
 		JPanel pan = new JPanel(new BorderLayout());
 		pan.setOpaque(false);
 		pan.add(back,BorderLayout.AFTER_LINE_ENDS);

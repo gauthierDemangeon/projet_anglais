@@ -4,13 +4,14 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import Main.FenetreConnexion;
 import Model.Model;
 import View.VueAccueil;
 import View.VuePart1;
 
-public class mouseListener implements MouseListener{
+public class ButtonMouseControler implements MouseListener{
 	Model model;
-	public mouseListener(Model m)
+	public ButtonMouseControler(Model m)
 	{
 		model = m;
 	}
@@ -61,14 +62,11 @@ public class mouseListener implements MouseListener{
 				}
 				va.update();
 				break;
+			case "co":
+				new FenetreConnexion(model);
+				break;
 			default:
 				break;
-		}
-		try {
-			Thread.sleep(1);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
 		}
 	}
   }
