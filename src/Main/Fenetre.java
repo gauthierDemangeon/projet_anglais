@@ -17,11 +17,11 @@ public class Fenetre extends JFrame {
 	    this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setLocationRelativeTo(null);
-	    Model m = new Model(this);
-	    VueAccueil v = new VueAccueil(m);
-	    m.getViews().add(v);
-	    this.setContentPane(v);
-	    this.setVisible(true);
+	    this.setVisible(false);
 	}
-	
+	public void update()
+	{
+		this.setVisible(true);
+		this.revalidate();
+	}
 }

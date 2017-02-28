@@ -1,12 +1,19 @@
 package View;
 
 import Controlers.*;
+import Interface.Observer;
+import Main.FenetreConnexion;
 import Model.Model;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.*;
 
-public class VueAccueil extends ImagePanel implements Vue{
+public class VueAccueil extends ImagePanel implements Observer{
 
 	/**
 	 * Create the frame.
@@ -18,14 +25,12 @@ public class VueAccueil extends ImagePanel implements Vue{
 	JPanel pan = new JPanel(new GridLayout(1,4));
 	
 	JPanel pan2 = new JPanel(new GridLayout(1,2));
-	JButton co  = new JButton("Sign in / Register");
+	JButton co  = new JButton(new ImageIcon ("./images/boutonconnexion.png"));
 	
-	Model model;
-	public VueAccueil(Model m) {
+	Controlers controler;
+	public VueAccueil(Controlers c) {
 		super();
-		
-		model = m;
-		
+		controler = c;
 		/*co.setName("connexion");
 		co.setOpaque(false);
 		co.setBorderPainted(false);
@@ -36,28 +41,31 @@ public class VueAccueil extends ImagePanel implements Vue{
 		part1.setOpaque(false);
 		part1.setBorderPainted(false);
 		part1.setContentAreaFilled(false);
-		part1.addMouseListener(new ButtonMouseControler(m));
+		part1.addActionListener(new BouttonListener());
 
 		part2.setName("part2");
 		part2.setOpaque(false);
 		part2.setBorderPainted(false);
 		part2.setContentAreaFilled(false);
-		part2.addMouseListener(new ButtonMouseControler(m));
+		part2.addActionListener(new BouttonListener());
 
 		part3.setName("part3");
 		part3.setOpaque(false);
 		part3.setBorderPainted(false);
 		part3.setContentAreaFilled(false);
-		part3.addMouseListener(new ButtonMouseControler(m));
+		part3.addActionListener(new BouttonListener());
 
 		part4.setName("part4");
 		part4.setOpaque(false);
 		part4.setBorderPainted(false);
 		part4.setContentAreaFilled(false);
-		part4.addMouseListener(new ButtonMouseControler(m));
+		part4.addActionListener(new BouttonListener());
 
 		co.setName("co");
-		co.addMouseListener(new ButtonMouseControler(m));
+		co.setOpaque(false);
+		co.setBorderPainted(false);
+		co.setContentAreaFilled(false);
+		co.addActionListener(new BouttonListener());
 		
 		pan.setOpaque(false);
 		pan.add(part1);
@@ -77,7 +85,35 @@ public class VueAccueil extends ImagePanel implements Vue{
 	
 	 
 	public void update() {
-		model.getF().setContentPane(this);
-		model.getF().revalidate();
+		if(controler.GetConnexionState())
+			co.setIcon(new ImageIcon ("./images/boutonDeconnexion.png"));
+		else
+			co.setIcon(new ImageIcon ("./images/boutonconnexion.png"));
+		controler.GetMainWindow().setContentPane(this);
+		controler.GetMainWindow().update();
+	}
+
+	class BouttonListener implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			switch(((JButton)e.getSource()).getName())
+			{
+				case "part1":
+				case "part2":
+				case "part3":
+				case "part4":
+					controler.SetVue(((JButton)e.getSource()).getName());
+					break;
+				case "co":
+					if(!controler.GetConnexionState())
+						controler.SetConnexionWindow();
+					else
+						controler.Deconnexion();
+					break;
+				default:
+					break;
+			}
+		}
 	}
 }

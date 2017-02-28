@@ -1,6 +1,8 @@
 package Main;
 
 import javax.swing.JFrame;
+
+import Controlers.Controlers;
 import Model.Model;
 import View.VueConnexion;
 
@@ -9,7 +11,7 @@ public class FenetreConnexion extends JFrame {
 
 
 	
-	public FenetreConnexion(Model m)
+	public FenetreConnexion(Controlers c)
 	
 	{
 	
@@ -17,9 +19,13 @@ public class FenetreConnexion extends JFrame {
 		this.setBounds(100, 100, 482, 329);
 	    
 	    this.setLocationRelativeTo(null);
-	    VueConnexion  v = new VueConnexion(m);
-	    this.setContentPane(v);
 	    this.setResizable(false);
-	    this.setVisible(true);
+	    this.setVisible(false);
+	}
+
+	public void update()
+	{
+		this.setVisible(true);
+		this.revalidate();
 	}
 }

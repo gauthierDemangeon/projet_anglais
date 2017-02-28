@@ -1,7 +1,6 @@
 package View;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -15,81 +14,82 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
-import Controlers.Controlers;
 import Interface.Observer;
-import Model.Model;
+import View.VueConnexion.ButtonListener;
+import View.VueConnexion.FieldMouseListener;
+import View.VueConnexion.focusListener;
+import View.VueConnexion.keyListener;
+import Controlers.Controlers;
 
+public class VueNouvelUtilisateur extends JPanel implements Observer {
 
-public class VueConnexion extends JPanel implements Observer {
-	private JButton co = new JButton(new ImageIcon("./images/boutonconnexion.png"));
-	private JButton btnNewUser  = new JButton(new ImageIcon("./images/nouvelUtilisateur.png")); 	
 	private JTextField txtNomUtilisateur= new JTextField();
 	private JPasswordField txtpassword = new JPasswordField();
 	private JLabel lblUserPwd = new JLabel();
-	private BufferedImage image;
 	private Controlers controler;
-	
-	public VueConnexion(Controlers c){
-	controler = c;	
-	setBounds(100, 100, 482, 329);
-	this.setBorder(new EmptyBorder(5, 5, 5, 5));
-	try {
-		image= ImageIO.read(new File("./images/fenetreConnexion.png"));
-	} catch (IOException e) {
-		e.printStackTrace();
+	private JButton btnCrer= new JButton(new ImageIcon("./images/creer.png"));
+	private JButton back  = new JButton(new ImageIcon("./images/nouvelUtilisateur.png")); 	
+	private BufferedImage image;
+	public VueNouvelUtilisateur(Controlers c) {
+		controler = c;
+		
+		setBounds(100, 100, 482, 329);
+		this.setLayout(null);
+		this.setBorder(new EmptyBorder(5, 5, 5, 5));
+		try {
+			image= ImageIO.read(new File("./images/fenetreConnexion.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		this.setLayout(null);
+
+		lblUserPwd.setForeground(Color.red);
+		lblUserPwd.setFont(new Font(Font.SERIF,Font.BOLD,15));
+		lblUserPwd.setBounds(28, 180, 405, 60);
+		this.add(lblUserPwd);
+
+		txtNomUtilisateur.setName("txtuser");
+		txtNomUtilisateur.setText("Username");
+		txtNomUtilisateur.setBounds(26, 31, 405, 30);
+		txtNomUtilisateur.setColumns(10);
+		txtNomUtilisateur.addMouseListener(new FieldMouseListener());
+		txtNomUtilisateur.addFocusListener(new focusListener());
+		txtNomUtilisateur.addKeyListener(new keyListener());
+		this.add(txtNomUtilisateur);
+
+		txtpassword.setName("txtpassword");
+		txtpassword.setEchoChar((char)0);
+		txtpassword.setText("Password");
+		txtpassword.setBounds(26, 71, 405, 30);
+		txtpassword.setColumns(10);
+		txtpassword.addMouseListener(new FieldMouseListener());
+		txtpassword.addFocusListener(new focusListener());
+		txtpassword.addKeyListener(new keyListener());
+		this.add(txtpassword);
+		
+		btnCrer.setName("btnCrer");
+		btnCrer.setBounds(26, 126, 135, 36);
+		btnCrer.addActionListener(new ButtonListener());
+		this.add(btnCrer);
+
+		back.setName("back");
+		back.setBounds(279, 244, 160, 36);
+		back.addActionListener(new ButtonListener());
+		this.add(back);
+
+		txtNomUtilisateur.setFocusable(false);
+		txtpassword.setFocusable(false);
 	}
-	this.setLayout(null);
-
-	lblUserPwd.setForeground(Color.red);
-	lblUserPwd.setFont(new Font(Font.SERIF,Font.BOLD,15));
-	lblUserPwd.setBounds(28, 180, 405, 60);
-	this.add(lblUserPwd);
 	
-	co.setName("co");
-	co.setBounds(26, 126, 135, 36);
-	co.addActionListener(new ButtonListener());
-	this.add(co);
-	 
-	txtNomUtilisateur.setName("txtuser");
-	txtNomUtilisateur.setText("Username");
-	txtNomUtilisateur.setBounds(26, 31, 405, 30);
-	txtNomUtilisateur.setColumns(10);
-	txtNomUtilisateur.addMouseListener(new FieldMouseListener());
-	txtNomUtilisateur.addFocusListener(new focusListener());
-	txtNomUtilisateur.addKeyListener(new keyListener());
-	txtNomUtilisateur.setFocusable(false);
-	this.add(txtNomUtilisateur);
-
-	txtpassword.setName("txtpassword");
-	txtpassword.setEchoChar((char)0);
-	txtpassword.setText("Password");
-	txtpassword.setBounds(26, 71, 405, 30);
-	txtpassword.setColumns(10);
-	txtpassword.addMouseListener(new FieldMouseListener());
-	txtpassword.addFocusListener(new focusListener());
-	txtpassword.addKeyListener(new keyListener());
-	txtpassword.setFocusable(false);
-	this.add(txtpassword);
-
-	btnNewUser.setName("btnNewUser");
-	btnNewUser .setBounds(279, 244, 160, 36);
-	btnNewUser.requestFocusInWindow();
-	btnNewUser.addActionListener(new ButtonListener());
-	this.add(btnNewUser );
-	
-	}
 	public void update() {
 		controler.GetConnexionWindow().setContentPane(this);
 		controler.GetConnexionWindow().update();
@@ -124,7 +124,7 @@ public class VueConnexion extends JPanel implements Observer {
 						txtpassword.grabFocus();
 						break;
 					case "txtpassword":
-						co.doClick();
+						btnCrer.doClick();
 						break;
 					default:
 						break;
@@ -247,14 +247,27 @@ public class VueConnexion extends JPanel implements Observer {
 		public void actionPerformed(ActionEvent e) {
 			switch(((JButton)e.getSource()).getName())
 			{
-				case "co":
-					if(controler.UserExistant(txtNomUtilisateur.getText(), new String(txtpassword.getPassword())))
-						controler.Connexion();
+				case "btnCrer":
+					String user = txtNomUtilisateur.getText();
+					String pwd = new String(txtpassword.getPassword());
+					lblUserPwd.setText("<html>");
+					if(user.length() == 0 || pwd.length() == 0 || user.equals("Username") || pwd.equals("Password"))
+					{
+						if(user.length() == 0)
+							lblUserPwd.setText(lblUserPwd.getText() + "The username must have at least one character<br></html>");
+						if(pwd.length() == 0)
+							lblUserPwd.setText(lblUserPwd.getText() + "The password must have at least one character<br>");
+						if(user.equals("Username"))
+							lblUserPwd.setText(lblUserPwd.getText() + "The username can't be \"Username\"<br>");
+						if(pwd.equals("Password"))
+							lblUserPwd.setText(lblUserPwd.getText() + "The password can't be \"Password\"<br>");
+						lblUserPwd.setText(lblUserPwd.getText() + "</html>");
+					}
 					else
-						lblUserPwd.setText("<html>Your username is unknown or password is false.<br>If you don't have an account yet, please click on the Register button</html>");
+						controler.SaveUser(user, pwd);
 					break;
-				case "btnNewUser":
-					controler.SetNewUserView();
+				case "back":
+					controler.SetConnexionWindow();
 					break;
 				default:
 					break;
@@ -262,4 +275,3 @@ public class VueConnexion extends JPanel implements Observer {
 		}
 	  }
 }
-
