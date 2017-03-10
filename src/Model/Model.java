@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import Class.Grille;
 import Interface.Observable;
 import Interface.Observer;
 import Interface.Observer;
@@ -67,7 +68,6 @@ public class Model implements Observable{
 			Br.close();
 			Fr.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
@@ -81,10 +81,56 @@ public class Model implements Observable{
 			Bw.close();
 			Fw.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
+	}
+	public Grille ParseurGrille(String path)
+	{
+		Grille g = null;
+		try{
+			BufferedReader fichierCSV = new BufferedReader(new FileReader(path));
+			String reader;
+			int n;
+			Boolean finGrille = false;
+			ArrayList<String[]> lettres = new ArrayList<String[]>();
+			ArrayList<String> mots = new ArrayList<String>();
+			ArrayList<String> indication = new ArrayList<String>();
+			ArrayList<Boolean> orientation = new ArrayList<Boolean>();
+			
+			while((reader = fichierCSV.readLine())!= null){	
+				if(reader.replaceAll(";", "").equals("")){
+					finGrille = true;
+					reader = fichierCSV.readLine();
+				}
+				
+				String[] ligne = reader.split(";",-1);
+				if(!finGrille){  
+					lettres.add(ligne);
+				}
+				else{
+					mots.add(ligne[0]);
+					indication.add(ligne[1]);
+					orientation.add(ligne[2].equals("h"));
+				}
+			}
+			String[][] tabLettre = new String[lettres.size()][lettres.get(0).length];
+			for(int i=0;i<lettres.size();i++)
+			{
+				tabLettre[i] = lettres.get(i);
+			}
+			String[] tabMots = new String[mots.size()];
+			tabMots = mots.toArray(tabMots);
+			String[] tabIndication = new String[indication.size()];
+			tabIndication = indication.toArray(tabIndication);
+			Boolean[] tabOrientation = new Boolean[orientation.size()];
+			tabOrientation = orientation.toArray(tabOrientation);
+			g = new Grille(tabMots,tabIndication,tabOrientation,tabLettre);
+		}
+		catch (IOException e){
+			System.out.println("Le fichier est introuvable !");
+		}
+		return g;
 	}
 	public Observer Instanceof(String typeofview)
 	{

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import Class.Grille;
 import Main.Fenetre;
 import Main.FenetreConnexion;
 import Model.Model;
@@ -99,6 +100,26 @@ public class Controlers {
 		}
 		// OU VueNouvelUtilisateur vnu = new VueNouvelUtilisateur(this);
 		model.addObserver(vnu);
+	}
+	public void ColorButton(String word,boolean orientation)
+	{
+		VuePart1 vp1 = null;
+		if(model.Instanceof("VuePart1") == null)
+		{
+			vp1 = new VuePart1(this);
+			model.getViews().add(vp1);
+		}
+		else
+		{
+			vp1 = (VuePart1) model.Instanceof("VuePart1");
+		}
+		vp1.setClicked(true);
+		vp1.setButtonIndexes(vp1.getGrille().getWordIndexes(word, orientation));
+		model.notifyObserver(vp1);
+	}
+	public Grille GetGrille()
+	{
+		return model.ParseurGrille("./DB/grille.csv");
 	}
 	public void Connexion()
 	{
