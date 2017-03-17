@@ -18,10 +18,10 @@ public class VueAccueil extends ImagePanel implements Observer{
 	/**
 	 * Create the frame.
 	 */
-	JButton part1 = new JButton(new ImageIcon ("./images/favoriGrise.png"));
-	JButton part2 = new JButton(new ImageIcon ("./images/favoriJaune.png"));
-	JButton part3 = new JButton(new ImageIcon ("./images/favoriGrise.png"));
-	JButton part4 = new JButton(new ImageIcon ("./images/favoriJaune.png"));
+	JButton part1 = new JButton(new ImageIcon ("./images/boutton1.png"));
+	JButton part2 = new JButton(new ImageIcon ("./images/boutton2.png"));
+	JButton part3 = new JButton(new ImageIcon ("./images/boutton3.png"));
+	JButton part4 = new JButton(new ImageIcon ("./images/boutton4.png"));
 	JPanel pan = new JPanel(new GridLayout(1,4));
 	
 	JPanel pan2 = new JPanel(new GridLayout(1,2));
@@ -29,7 +29,7 @@ public class VueAccueil extends ImagePanel implements Observer{
 	
 	Controlers controler;
 	public VueAccueil(Controlers c) {
-		super();
+		super("./images/Présentation.jpg");
 		controler = c;
 		/*co.setName("connexion");
 		co.setOpaque(false);

@@ -14,6 +14,7 @@ import Interface.Observer;
 import Interface.Observer;
 import Main.Fenetre;
 import Main.FenetreConnexion;
+import View.VueJeu;
 
 public class Model implements Observable{
 	Fenetre f;
@@ -98,20 +99,24 @@ public class Model implements Observable{
 			ArrayList<String> indication = new ArrayList<String>();
 			ArrayList<Boolean> orientation = new ArrayList<Boolean>();
 			
-			while((reader = fichierCSV.readLine())!= null){	
-				if(reader.replaceAll(";", "").equals("")){
+			while((reader = fichierCSV.readLine())!= null)
+			{	
+				if(reader.replaceAll(";", "").equals(""))
+				{
 					finGrille = true;
 					reader = fichierCSV.readLine();
 				}
 				
 				String[] ligne = reader.split(";",-1);
-				if(!finGrille){  
+				if(!finGrille)
+				{  
 					lettres.add(ligne);
 				}
-				else{
-					mots.add(ligne[0]);
+				else
+				{
+					mots.add(ligne[0].trim());
 					indication.add(ligne[1]);
-					orientation.add(ligne[2].equals("h"));
+					orientation.add(ligne[2].trim().equals("h"));
 				}
 			}
 			String[][] tabLettre = new String[lettres.size()][lettres.get(0).length];
@@ -141,6 +146,15 @@ public class Model implements Observable{
 		}
 		return null;
 	}
+	public Observer Instanceof(int level)
+	{
+		for(Observer v : views)
+		{
+			if(v instanceof VueJeu && ((VueJeu)v).getlevel() == level)
+				return v;
+		}
+		return null;
+	}
 	@Override
 	public void addObserver(Observer obs) {
 		if(!views.contains(obs))
@@ -148,8 +162,14 @@ public class Model implements Observable{
 		notifyObserver(obs);
 	}
 	@Override
-	public void removeObserver() {
-		views = new ArrayList<Observer>();
+	public void removeObserver(Observer obs) {
+		if(obs == null)
+			views = new ArrayList<Observer>();
+		else
+		{
+			if(views.contains(obs))
+				views.remove(obs);
+		}
 	}
 	@Override
 	public void notifyObserver(Observer obs) {

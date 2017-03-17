@@ -12,15 +12,15 @@ public class ImagePanel extends JPanel{
 
     private BufferedImage image;
 
-    public ImagePanel() {
+    public ImagePanel(String path ) {
     	super(new BorderLayout());
        try {
  
-          image = ImageIO.read(new File("./images/imageAccueil.jpg"));
+          image = ImageIO.read(new File(path));
           
     	  
        } catch (IOException ex) {
-       
+    	   image = null;
        }
     }
 

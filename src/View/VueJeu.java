@@ -7,7 +7,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import Class.Grille;
@@ -15,13 +19,18 @@ import Controlers.Controlers;
 import Interface.Observer;
 import Model.Model;
 
-public class VuePart1 extends ImagePanel implements Observer {
+public class VueJeu extends ImagePanel implements Observer {
 
 	Controlers controler;
 	Grille g;
 	Boolean clicked = false;
 	String[] buttonIndexes;
 	JPanel grille;
+	private BufferedImage image;
+	private int level;
+	public int getlevel() {
+		return level;
+	}
 	public Grille getGrille() {
 		return g;
 	}
@@ -37,11 +46,12 @@ public class VuePart1 extends ImagePanel implements Observer {
 	public void setClicked(Boolean clicked) {
 		this.clicked = clicked;
 	}
-	public VuePart1(Controlers c)
+	public VueJeu(Controlers c,int level)
 	{
-		super();
+		super("./images/JeuEnPlace.jpg");
 		controler = c;
-		g  = c.GetGrille();
+		this.level = level;
+		g  = c.GetGrille(level);
 		JButton back = new JButton(new ImageIcon ("./images/boutonlogo.png"));
 		grille=new JPanel(new GridLayout(g.getHeight(),g.getWidth()));
 		for(int i = 0;i<g.getHeight();i++)
@@ -76,29 +86,48 @@ public class VuePart1 extends ImagePanel implements Observer {
 		pan.setOpaque(false);
 		pan.add(back,BorderLayout.AFTER_LINE_ENDS);
 		add(pan,BorderLayout.SOUTH);
-		JPanel pan2 = new JPanel(new GridLayout(g.getMots().length + 2, 1));
-		pan2.setOpaque(true);
-		pan2.add(new JLabel("Horizontal"));
-		for(int i = 0;i<g.getMots().length;i++)
+		JPanel pan2 = new JPanel(new GridLayout(g.getHint().length + 2, 1));
+		pan2.setOpaque(false);
+		JLabel hor = new JLabel("<HTML><U>Horizontal</U></HTML>");
+		hor.setFont(new Font(hor.getFont().getName(),Font.BOLD,hor.getFont().getSize() + 5));
+		hor.setForeground(Color.GREEN);
+		hor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		pan2.add(hor);
+		for(int i = 0;i<g.getHint().length;i++)
 		{
 			if(g.getOrientation()[i])
 			{
-				JLabel lab = new JLabel(g.getMots()[i]);
+				JLabel lab = new JLabel(g.getHint()[i]);
+				lab.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				lab.setFont(new Font(lab.getFont().getName(),Font.BOLD,lab.getFont().getSize()));
+				lab.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 				lab.addMouseListener(new mouseListener(g.getOrientation()[i]));
 				pan2.add(lab);
 			}
 		}
-		pan2.add(new JLabel("Vertical"));
-		for(int i = 0;i<g.getMots().length;i++)
+		JLabel ver = new JLabel("<HTML><U>Vertical</U></HTML>");
+		ver.setFont(new Font(ver.getFont().getName(),Font.BOLD,ver.getFont().getSize() + 5));
+		ver.setForeground(Color.GREEN);
+		ver.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		pan2.add(ver);
+		for(int i = 0;i<g.getHint().length;i++)
 		{
 			if(!g.getOrientation()[i]){
 
-				JLabel lab = new JLabel(g.getMots()[i]);
+				JLabel lab = new JLabel(g.getHint()[i]);
+				lab.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				lab.setFont(new Font(lab.getFont().getName(),Font.BOLD,lab.getFont().getSize()));
+				lab.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 				lab.addMouseListener(new mouseListener(g.getOrientation()[i]));
 				pan2.add(lab);
 			}
 		}
-		add(pan2,BorderLayout.EAST);
+		//pan2.setBorder(BorderFactory.createLineBorder(Color.white,2));
+		JScrollPane span = new JScrollPane(pan2);
+		span.getViewport().setOpaque(false);
+		span.setOpaque(false);
+		span.getVerticalScrollBar().setUnitIncrement(20);
+		add(span,BorderLayout.EAST);
 		add(grille,BorderLayout.CENTER);
 	}
 	public void NextButtonFocus(String name)
@@ -140,7 +169,6 @@ public class VuePart1 extends ImagePanel implements Observer {
 		controler.GetMainWindow().setContentPane(this);
 		controler.GetMainWindow().update();
 	}
-	
 	public class KeybuttonListener implements KeyListener
 	{
 
@@ -192,7 +220,7 @@ public class VuePart1 extends ImagePanel implements Observer {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub
-			controler.ColorButton(((JLabel)e.getSource()).getText(), orientation);
+			controler.ColorButton(((JLabel)e.getSource()).getText(), orientation,level);
 		}
 
 		@Override

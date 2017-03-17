@@ -12,7 +12,7 @@ import Model.Model;
 import View.VueAccueil;
 import View.VueConnexion;
 import View.VueNouvelUtilisateur;
-import View.VuePart1;
+import View.VueJeu;
 
 public class Controlers {
 
@@ -24,19 +24,28 @@ public class Controlers {
 	}
 	public void SetVue(String name)
 	{
+		int level = 0;
 		switch(name)
 		{
 			case "part1":
-				VuePart1 vp1 = new VuePart1(this);
-				model.addObserver(vp1);
+				level = 0;
 				break;
 			case "part2":
+				level = 1;
 				break;
 			case "part3":
+				level = 2;
 				break;
 			case "part4":
+				level = 3;
 				break;
 		}
+		if(model.Instanceof(level) == null)
+		{
+			model.addObserver(new VueJeu(this,level));
+		}
+		else
+			model.notifyObserver(model.Instanceof(level));
 	}
 	public void BackAccueil()
 	{
@@ -44,12 +53,12 @@ public class Controlers {
 		if(model.Instanceof("VueAccueil") == null)
 		{
 			va = new VueAccueil(this);
-			model.getViews().add(va);
 		}
 		else
 		{
 			va = (VueAccueil) model.Instanceof("VueAccueil");
 		}
+		model.addObserver(va);
 		model.notifyObserver(va);
 	}
 	public void SetConnexionWindow()
@@ -64,7 +73,6 @@ public class Controlers {
 		if(model.Instanceof("VueConnexion") == null)
 		{
 			vc = new VueConnexion(this);
-			model.getViews().add(vc);
 		}
 		else
 		{
@@ -92,7 +100,6 @@ public class Controlers {
 		if(model.Instanceof("VueNouvelUtilisateur") == null)
 		{
 			vnu = new VueNouvelUtilisateur(this);
-			model.getViews().add(vnu);
 		}
 		else
 		{
@@ -101,25 +108,44 @@ public class Controlers {
 		// OU VueNouvelUtilisateur vnu = new VueNouvelUtilisateur(this);
 		model.addObserver(vnu);
 	}
-	public void ColorButton(String word,boolean orientation)
+	public void ColorButton(String hint,boolean orientation,int level)
 	{
-		VuePart1 vp1 = null;
-		if(model.Instanceof("VuePart1") == null)
+		VueJeu vj = null;
+		if(model.Instanceof(level) == null)
 		{
-			vp1 = new VuePart1(this);
-			model.getViews().add(vp1);
+			vj = new VueJeu(this,level);
 		}
 		else
 		{
-			vp1 = (VuePart1) model.Instanceof("VuePart1");
+			vj = (VueJeu) model.Instanceof(level);
 		}
-		vp1.setClicked(true);
-		vp1.setButtonIndexes(vp1.getGrille().getWordIndexes(word, orientation));
-		model.notifyObserver(vp1);
+		model.addObserver(vj);
+		vj.setClicked(true);
+		vj.setButtonIndexes(vj.getGrille().getWordIndexes(hint, orientation));
+		model.notifyObserver(vj);
 	}
-	public Grille GetGrille()
+	public Grille GetGrille(int level)
 	{
-		return model.ParseurGrille("./DB/grille.csv");
+		String path = null;
+		switch(level)
+		{
+		case 0:
+			path = "./DB/grille_debutant.csv";
+			break;
+		case 1:
+			path = "./DB/grille_facile.csv";
+			break;
+		case 2:
+			path = "./DB/grille_intermédiaire.csv";
+			break;
+		case 3:
+			path = "./DB/grille_expert.csv";
+			break;
+		default:
+			path = "./DB/grille_debutant.csv";
+			break;
+		}
+		return model.ParseurGrille(path);
 	}
 	public void Connexion()
 	{

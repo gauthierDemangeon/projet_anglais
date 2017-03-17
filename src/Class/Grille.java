@@ -21,12 +21,18 @@ public class Grille {
 	}
 	public boolean IsLetter(int r,int c)
 	{
-		if(lettres[r][c].isEmpty())
-			return false;
-		return true;
+		if(r < lettres.length && c < lettres[0].length)
+		{
+			if(!lettres[r][c].isEmpty())
+				return true;
+		}
+		return false;
 	}
 	public String[] getMots() {
 		return mots;
+	}
+	public String[] getHint() {
+		return indication;
 	}
 	public Boolean[] getOrientation() {
 		return orientation;
@@ -43,8 +49,19 @@ public class Grille {
 	public void setHeight(int height) {
 		this.height = height;
 	}
-	public String[] getWordIndexes(String word,boolean orientation)
+	public String[] getWordIndexes(String hint,boolean orientation)
 	{
+		String word = "";
+		for(int i=0;i<indication.length;i++)
+		{
+			if(indication[i].equals(hint))
+			{
+				word = mots[i];
+				break;
+			}
+		}
+		if(word.length() == 0)
+			return null;
 		String[] indexes = new String[word.length()];
 		if(orientation)
 		{
@@ -58,6 +75,8 @@ public class Grille {
 						indexes[0] = String.valueOf(j) + "," + String.valueOf(i);
 						for(int k=1;k<word.length();k++)
 						{
+							if(j >= lettres.length && i+k >= lettres[0].length)
+								break;
 							motteste += lettres[j][i+k];
 							indexes[k] = String.valueOf(j) + "," + String.valueOf(i + k);
 						}
