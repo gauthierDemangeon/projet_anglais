@@ -156,7 +156,7 @@ public class VueJeu extends ImagePanel implements Observer {
 						if(((JButton)c).getName().equals("button" + index))
 						{
 							((JButton)c).setEnabled(true);
-							((JButton)c).setBackground(((JButton)c).getBackground() == Color.WHITE ? Color.BLUE : Color.WHITE);
+							((JButton)c).setBackground(((JButton)c).getBackground() == Color.WHITE ? Color.decode("#7ce1ae") : Color.WHITE);
 							if(index.equals(buttonIndexes[0]))
 								((JButton)c).grabFocus();
 							break;

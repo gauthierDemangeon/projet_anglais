@@ -68,7 +68,7 @@ public class Controlers {
 			FenetreConnexion f = new FenetreConnexion(this);
 			model.setFc(f);
 		}
-		//On garde les données
+		//On garde les donnï¿½es
 		VueConnexion vc = null;
 		if(model.Instanceof("VueConnexion") == null)
 		{
@@ -95,7 +95,7 @@ public class Controlers {
 	public void SetNewUserView()
 	{
 		model.getFc();
-		//On garde les données
+		//On garde les donnï¿½es
 		VueNouvelUtilisateur vnu = null;
 		if(model.Instanceof("VueNouvelUtilisateur") == null)
 		{
@@ -136,7 +136,7 @@ public class Controlers {
 			path = "./DB/grille_facile.csv";
 			break;
 		case 2:
-			path = "./DB/grille_intermédiaire.csv";
+			path = "./DB/grille_intermÃ©diaire.csv";
 			break;
 		case 3:
 			path = "./DB/grille_expert.csv";

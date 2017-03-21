@@ -29,7 +29,7 @@ public class VueAccueil extends ImagePanel implements Observer{
 	
 	Controlers controler;
 	public VueAccueil(Controlers c) {
-		super("./images/Présentation.jpg");
+		super("./images/PrÃ©sentation.jpg");
 		controler = c;
 		/*co.setName("connexion");
 		co.setOpaque(false);
