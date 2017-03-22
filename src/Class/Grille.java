@@ -28,6 +28,24 @@ public class Grille {
 		}
 		return false;
 	}
+	public String[] getIndication() {
+		return indication;
+	}
+	public void setIndication(String[] indication) {
+		this.indication = indication;
+	}
+	public String[][] getLettres() {
+		return lettres;
+	}
+	public void setLettres(String[][] lettres) {
+		this.lettres = lettres;
+	}
+	public void setMots(String[] mots) {
+		this.mots = mots;
+	}
+	public void setOrientation(Boolean[] orientation) {
+		this.orientation = orientation;
+	}
 	public String[] getMots() {
 		return mots;
 	}

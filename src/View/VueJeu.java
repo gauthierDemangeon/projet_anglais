@@ -53,7 +53,11 @@ public class VueJeu extends ImagePanel implements Observer {
 		this.level = level;
 		g  = c.GetGrille(level);
 		JButton back = new JButton(new ImageIcon ("./images/boutonlogo.png"));
+		
+		JButton Correction = new JButton(new ImageIcon ("./images/historique.png"));
+		
 		grille=new JPanel(new GridLayout(g.getHeight(),g.getWidth()));
+		
 		for(int i = 0;i<g.getHeight();i++)
 		{
 			for(int j=0;j<g.getWidth();j++)
@@ -64,7 +68,7 @@ public class VueJeu extends ImagePanel implements Observer {
 				if(g.IsLetter(i, j))
 				{
 					but.setBackground(Color.WHITE);
-					but.setFont(new Font("Arial", Font.BOLD, 40));
+					but.setFont(new Font("Ubuntu Light", Font.BOLD, 40));
 					but.addKeyListener(new KeybuttonListener());
 				}
 				else
@@ -77,14 +81,25 @@ public class VueJeu extends ImagePanel implements Observer {
 			}
 		}
 		grille.setOpaque(false);
+		
+		Correction.setName("Correc");
+		Correction.setOpaque(false);
+		Correction.setBorderPainted(false);
+		Correction.setContentAreaFilled(false);
+		Correction.addActionListener(new ButtonListener());
+		
 		back.setName("backV1");
 		back.setOpaque(false);
 		back.setBorderPainted(false);
 		back.setContentAreaFilled(false);
 		back.addActionListener(new ButtonListener());
+		
 		JPanel pan = new JPanel(new BorderLayout());
 		pan.setOpaque(false);
 		pan.add(back,BorderLayout.AFTER_LINE_ENDS);
+	
+		pan.add(Correction,BorderLayout.BEFORE_FIRST_LINE);
+		
 		add(pan,BorderLayout.SOUTH);
 		JPanel pan2 = new JPanel(new GridLayout(g.getHint().length + 2, 1));
 		pan2.setOpaque(false);
@@ -142,6 +157,42 @@ public class VueJeu extends ImagePanel implements Observer {
 				}
 		}
 	}
+	
+	public void AfficheCorrection(){
+		for(Component c : grille.getComponents())
+		{
+			if(c instanceof JButton && c.isOpaque())
+			{
+				//((JButton)c).setEnabled(false);
+				String texte = c.getName().substring(6,c.getName().length());
+				int i,j;
+				i=0;j=0;
+				// On récupere les coordonnées du boutton dans la grille 
+				if(texte.charAt(1)==','){
+					i = Integer.parseInt(texte.substring(0,1));
+					j = Integer.parseInt(texte.substring(2,texte.length()));
+				}
+				if(texte.charAt(2)==','){
+					i = Integer.parseInt(texte.substring(0,2));
+					j = Integer.parseInt(texte.substring(3,texte.length()));
+				}
+				
+				String a = ((JButton)c).getText();
+				String b = g.getLettres()[i][j];
+				
+				if (a.equals(b)){
+					((JButton)c).setBackground(Color.decode("#7ce1ae"));
+				}
+				else{
+					((JButton)c).setBackground(Color.decode("#f14242"));
+					((JButton)c).setText(g.getLettres()[i][j]);
+				}
+			}
+		}
+	}
+	
+	
+	
 	public void update() {
 		if(getClicked())
 		{
@@ -203,6 +254,14 @@ public class VueJeu extends ImagePanel implements Observer {
 			{
 				case "backV1":
 					controler.BackAccueil();
+					break;
+				case "Correc":
+					/*
+					 * On affiche la correction avec les couleurs adapté vert/rouge  en fonction des bonnes/mauvaises réponses
+					 *
+					 */
+					AfficheCorrection();
+					((JButton)e.getSource()).setVisible(false);
 					break;
 				default:
 					break;
