@@ -120,6 +120,7 @@ public class Controlers {
 			vj = (VueJeu) model.Instanceof(level);
 		}
 		model.addObserver(vj);
+		
 		vj.setClicked(true);
 		vj.setButtonIndexes(vj.getGrille().getWordIndexes(hint, orientation));
 		model.notifyObserver(vj);

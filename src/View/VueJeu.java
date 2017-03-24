@@ -28,6 +28,7 @@ public class VueJeu extends ImagePanel implements Observer {
 	JPanel grille;
 	private BufferedImage image;
 	private int level;
+	JScrollPane span;
 	public int getlevel() {
 		return level;
 	}
@@ -53,8 +54,7 @@ public class VueJeu extends ImagePanel implements Observer {
 		this.level = level;
 		g  = c.GetGrille(level);
 		JButton back = new JButton(new ImageIcon ("./images/boutonlogo.png"));
-		
-		JButton Correction = new JButton(new ImageIcon ("./images/historique.png"));
+		JButton Correction = new JButton(new ImageIcon ("./images/imageCheckAnswer.png"));
 		
 		grille=new JPanel(new GridLayout(g.getHeight(),g.getWidth()));
 		
@@ -68,7 +68,7 @@ public class VueJeu extends ImagePanel implements Observer {
 				if(g.IsLetter(i, j))
 				{
 					but.setBackground(Color.WHITE);
-					but.setFont(new Font("Ubuntu Light", Font.BOLD, 40));
+					but.setFont(new Font("Ubuntu Light", Font.BOLD, 14));
 					but.addKeyListener(new KeybuttonListener());
 				}
 				else
@@ -97,7 +97,6 @@ public class VueJeu extends ImagePanel implements Observer {
 		JPanel pan = new JPanel(new BorderLayout());
 		pan.setOpaque(false);
 		pan.add(back,BorderLayout.AFTER_LINE_ENDS);
-	
 		pan.add(Correction,BorderLayout.BEFORE_FIRST_LINE);
 		
 		add(pan,BorderLayout.SOUTH);
@@ -138,7 +137,7 @@ public class VueJeu extends ImagePanel implements Observer {
 			}
 		}
 		//pan2.setBorder(BorderFactory.createLineBorder(Color.white,2));
-		JScrollPane span = new JScrollPane(pan2);
+		span = new JScrollPane(pan2);
 		span.getViewport().setOpaque(false);
 		span.setOpaque(false);
 		span.getVerticalScrollBar().setUnitIncrement(20);
@@ -207,7 +206,7 @@ public class VueJeu extends ImagePanel implements Observer {
 						if(((JButton)c).getName().equals("button" + index))
 						{
 							((JButton)c).setEnabled(true);
-							((JButton)c).setBackground(((JButton)c).getBackground() == Color.WHITE ? Color.decode("#7ce1ae") : Color.WHITE);
+							((JButton)c).setBackground(((JButton)c).getBackground() == Color.WHITE ? Color.decode("#7caee1") : Color.WHITE);
 							if(index.equals(buttonIndexes[0]))
 								((JButton)c).grabFocus();
 							break;
@@ -285,13 +284,18 @@ public class VueJeu extends ImagePanel implements Observer {
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			// TODO Auto-generated method stub
-			
+			if(!clicked){
+				controler.ColorButton(((JLabel)e.getSource()).getText(), orientation,level);
+				((JLabel)e.getSource()).setForeground(Color.decode("#ffffff"));
+			}
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
+			if(!clicked){
+				
+				((JLabel)e.getSource()).setForeground(Color.decode("#333333"));
+			}
 		}
 
 		@Override
