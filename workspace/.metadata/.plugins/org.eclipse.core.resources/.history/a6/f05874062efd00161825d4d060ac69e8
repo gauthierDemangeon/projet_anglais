@@ -1,0 +1,12 @@
+package View;
+
+import javax.swing.*
+
+public class VuePart1 extends JPanel implements Vue {
+
+	@Override
+	public void update() {
+		((JFrame)this.getParent()).setContentPane(this);
+	}
+
+}

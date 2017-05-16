@@ -1,0 +1,66 @@
+package View;
+
+import Controlers.*;
+import Model.Model;
+
+import java.awt.*;
+import javax.swing.*;
+
+public class VueAccueil extends ImagePanel implements Vue{
+
+	/**
+	 * Create the frame.
+	 */
+	JButton Part1 = new JButton(new ImageIcon ("./images/favoriGrise.png"));
+	JButton Part2 = new JButton(new ImageIcon ("./images/favoriJaune.png"));
+	JButton Part3 = new JButton(new ImageIcon ("./images/favoriGrise.png"));
+	JButton Part4 = new JButton(new ImageIcon ("./images/favoriJaune.png"));
+	
+	JPanel pan = new JPanel(new GridLayout(1,4));
+	Model model;
+	mouseListener ml;
+	public VueAccueil(Model m) {
+		super();
+		
+		model = m;
+		ml = new mouseListener(model);
+		
+		Part1.setName("part1");
+		Part1.setOpaque(false);
+		Part1.setBorderPainted(false);
+		Part1.setContentAreaFilled(false);
+		Part1.addMouseListener(ml);
+
+		/*Part2.setName("part2");
+		Part2.setOpaque(false);
+		Part2.setBorderPainted(false);
+		Part2.setContentAreaFilled(false);
+		Part1.addMouseListener(ml);
+
+		Part3.setName("part3");
+		Part3.setOpaque(false);
+		Part3.setBorderPainted(false);
+		Part3.setContentAreaFilled(false);
+		Part1.addMouseListener(ml);
+
+		Part4.setName("part4");
+		Part4.setOpaque(false);
+		Part4.setBorderPainted(false);
+		Part4.setContentAreaFilled(false);
+		Part1.addMouseListener(ml);
+		
+		pan.setOpaque(false);
+		pan.add(Part1);
+		pan.add(Part2);
+		pan.add(Part3);
+		pan.add(Part4);*/
+		
+		add(pan,BorderLayout.CENTER);
+	}
+	
+	 
+	public void update() {
+		model.getF().setContentPane(this);
+		model.getF().revalidate();
+	}
+}

@@ -1,0 +1,11 @@
+class Machin {}
+class Bidule {}
+class Truc extends Machin {}
+class Chose {
+	public static void main(String args[]) {
+		Object o = new Truc();
+		Machin a = new Machin();
+		Truc tt = new Truc();
+		Machin m3 = (Machin) tt;
+		}
+	}

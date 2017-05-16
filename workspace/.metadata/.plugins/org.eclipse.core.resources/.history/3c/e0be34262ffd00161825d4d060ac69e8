@@ -1,0 +1,44 @@
+package Controlers;
+
+import java.awt.event.*;
+
+import javax.swing.*;
+
+import View.VuePart1;
+
+public class mouseListener implements MouseListener{
+	
+	public mouseListener()
+	{
+	}
+	public void mouseClicked(MouseEvent e) {
+		switch(((JButton)e.getSource()).getName())
+		{
+			case "part1":
+				new VuePart1();
+				break;
+			default:
+				break;
+		}
+	}
+
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+  }

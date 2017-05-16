@@ -1,0 +1,16 @@
+class Shape {
+	private String color;
+	public Shape() {
+		System.out.print("Shape");
+		}
+	}
+class Rectangle extends Shape {
+	public Rectangle() {
+		System.out.print("Rectangle");
+		}
+	}
+public class Main {
+	public static void main(String[] args) {
+		new Rectangle();
+		}
+	}

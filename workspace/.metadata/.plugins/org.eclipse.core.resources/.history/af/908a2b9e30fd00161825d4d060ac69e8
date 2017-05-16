@@ -1,0 +1,18 @@
+package View;
+
+import javax.swing.*;
+
+import Model.Model;
+
+public class VuePart1 extends JPanel implements Vue {
+
+	Model model;
+	public VuePart1(Model m)
+	{
+		model = m;
+	}
+	public void update() {
+		((JFrame)model.getF()).setContentPane(this);
+	}
+
+}

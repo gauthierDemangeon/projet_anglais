@@ -1,0 +1,30 @@
+package View;
+
+import java.awt.*;
+
+import javax.swing.*;
+
+import Model.Model;
+
+public class VuePart1 extends ImagePanel implements Vue {
+
+	Model model;
+	public VuePart1(Model m)
+	{
+		super();
+		model = m;
+		JPanel p = new JPanel();
+		JPanel p2 = new JPanel(new GridLayout(1,5));
+		JButton back = new JButton(new ImageIcon ("./images/favoriGrise.png"));
+		p2.add(null);
+		p2.add(null);
+		p2.add(null);
+		p2.add(null);
+		p2.add(null);
+	}
+	public void update() {
+		model.getF().setContentPane(this);
+		model.getF().revalidate();
+	}
+
+}

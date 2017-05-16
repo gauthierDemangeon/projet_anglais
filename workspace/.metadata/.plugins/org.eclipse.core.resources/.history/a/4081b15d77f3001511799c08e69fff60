@@ -1,0 +1,26 @@
+class Bidule 
+{
+	void bipbip(Bidule x) {
+		System.out.println("bipbip de Bidule");
+		}
+	void coincoin(Machin x) {
+		System.out.println("coincoin de Bidule");
+		}
+	}
+class Machin extends Bidule {
+	void bipbip(Bidule x) {
+		System.out.println("bipbip de Machin");
+		}
+	void coincoin(Machin x) {
+		System.out.println("coincoin de Machin");
+		}
+	}
+class Main {
+	public static void main(String[] argv) {
+		Bidule x = new Machin();
+		Machin y = new Machin(); 
+		Bidule z = new Bidule();
+		
+		x.coincoin(y) ;
+	}
+}

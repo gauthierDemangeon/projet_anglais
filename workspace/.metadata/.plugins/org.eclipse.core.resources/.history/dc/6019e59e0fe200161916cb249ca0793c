@@ -1,0 +1,26 @@
+import java.util.ArrayList;
+
+public class NBA {
+	ArrayList<Conference> Conferences = new ArrayList<Conference>;
+	public static void main(String[] args)
+	{
+		
+	}
+}
+class Conference
+{
+	ArrayList<Division> Divisions;
+}
+class Division extends Conference
+{
+	ArrayList<Team> Teams;
+}
+class Team
+{
+	ArrayList<Team> Players;
+}
+class Player
+{
+	
+}
+

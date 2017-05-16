@@ -1,0 +1,22 @@
+package Model;
+
+import java.util.ArrayList;
+
+import Main.Fenetre;
+import View.Vue;
+
+public class Model {
+	Fenetre f;
+	
+	public Fenetre getF() {
+		return f;
+	}
+	public void setF(Fenetre f) {
+		this.f = f;
+	}
+	
+	public Model(Fenetre f)
+	{
+		this.f = f;
+	}
+}

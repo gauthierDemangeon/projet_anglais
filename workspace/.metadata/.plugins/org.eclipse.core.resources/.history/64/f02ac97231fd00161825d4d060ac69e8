@@ -1,0 +1,22 @@
+package View;
+
+import javax.swing.*;
+
+import Model.Model;
+
+public class VuePart1 extends ImagePanel implements Vue {
+
+	Model model;
+	public VuePart1(Model m)
+	{
+		super();
+		model = m;
+		//JPanel p = new JPanel();
+		//add(p);
+	}
+	public void update() {
+		model.getF().setContentPane(this);
+		model.getF().revalidate();
+	}
+
+}

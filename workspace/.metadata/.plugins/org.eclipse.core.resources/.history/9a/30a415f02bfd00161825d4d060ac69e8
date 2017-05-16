@@ -1,0 +1,38 @@
+package Controlers;
+
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.JTextField;
+
+public class mouseListener implements MouseListener{
+	JTextField txtachanger;
+	
+	public mouseListener(JTextField txt)
+	{
+		this.txtachanger=txt;
+	}
+	public void mouseClicked(MouseEvent e) {
+		txtachanger.setText("");
+	}
+
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+  }

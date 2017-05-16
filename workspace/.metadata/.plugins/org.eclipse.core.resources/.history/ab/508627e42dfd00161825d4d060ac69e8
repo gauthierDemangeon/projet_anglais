@@ -1,0 +1,11 @@
+package View;
+
+public class VuePart1 implements Vue {
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

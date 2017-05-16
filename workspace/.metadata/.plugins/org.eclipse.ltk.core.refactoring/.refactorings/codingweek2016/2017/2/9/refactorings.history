@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;mouseListener.java&apos; to &apos;English_projet/src/Controlers&apos;&#x0D;&#x0A;- Original project: &apos;codingweek2016&apos;&#x0D;&#x0A;- Destination element: &apos;English_projet/src/Controlers&apos;&#x0D;&#x0A;- Original element: &apos;Controlers.mouseListener.java&apos;" description="Copy compilation unit" destination="=English_projet/src&lt;Controlers" element1="/src\/main\/java&lt;Controlers{mouseListener.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1488227566143" units="1" version="1.0"/>
+</session>

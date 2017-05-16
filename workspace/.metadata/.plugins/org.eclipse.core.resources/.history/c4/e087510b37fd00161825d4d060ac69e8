@@ -1,0 +1,74 @@
+package Controlers;
+
+import java.awt.event.*;
+
+import javax.swing.*;
+
+import Model.Model;
+import View.VueAccueil;
+import View.VuePart1;
+
+public class mouseListener implements MouseListener{
+	Model model;
+	public mouseListener(Model m)
+	{
+		model = m;
+	}
+	public void mouseClicked(MouseEvent e) {
+	}
+
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void mouseReleased(MouseEvent e) {
+		switch(((JButton)e.getSource()).getName())
+		{
+			case "part1":
+				VuePart1 vp1;
+				if(model.Instanceof("VuePart1") == null)
+				{
+					vp1 = new VuePart1(model);
+					model.getViews().add(vp1);
+				}
+				else
+				{
+					vp1 = (VuePart1) model.Instanceof("VuePart1");
+				}
+				vp1.update();
+				break;
+			case "backV1":
+				VueAccueil va;
+				if(model.Instanceof("VueAccueil") == null)
+				{
+					va = new VueAccueil(model);
+					model.getViews().add(va);
+				}
+				else
+				{
+					vp1 = (VuePart1) model.Instanceof("VueAccueil");
+				}
+				va.update();
+				break;
+			default:
+				break;
+		}
+		try {
+			Thread.sleep(1);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+  }

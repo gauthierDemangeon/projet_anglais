@@ -1,0 +1,11 @@
+package Model;
+
+import Main.Fenetre;
+
+public class Model {
+	Fenetre f;
+	public Model(Fenetre f)
+	{
+		
+	}
+}

@@ -1,0 +1,17 @@
+class Animal {
+	public void eat(Animal D){
+		System.out.println("eat A");}
+	}
+class Dog extends Animal {
+	public void eat2(Dog D) {
+		System.out.println("eat D");
+		}
+}
+class Main {
+	public static void main(String[] args) {
+		Animal a = new Animal();
+		Dog b = new Dog();
+		Animal x = a;
+		((Dog)a).eat2(b);
+	}
+}

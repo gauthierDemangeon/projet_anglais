@@ -1,0 +1,31 @@
+class Animal {
+	protected long uniqueId;
+	public Animal(long myid) {
+		this.uniqueId = myid;
+		}
+	public boolean equals(Animal a) {
+		return (a.uniqueId == this.uniqueId);
+		}
+	}
+class Duck extends Animal {
+	private String name;
+	public Duck(long myid, String name) {
+		super(myid);
+		this.name = name;
+		}
+	public boolean equals(Duck d) {
+		return (d.uniqueId == this.uniqueId && this.name.equals(d.name));
+		}
+	}
+class Main {
+	public static void main(String args[]) {
+		boolean flag = false;
+		Duck donald = new Duck(1L, "Donald");
+		Duck cloneA = new Duck(1L, "CloneA");
+		Animal cloneB = new Duck(1L, "CloneB");
+		flag = cloneA.equals(donald);
+		flag = donald.equals(cloneB);
+		flag = cloneB.equals(donald);
+		System.out.println(flag);
+		}
+	}

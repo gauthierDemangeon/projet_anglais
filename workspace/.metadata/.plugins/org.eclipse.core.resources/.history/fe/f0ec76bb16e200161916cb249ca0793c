@@ -1,0 +1,69 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+
+public class NBA {
+	ArrayList<Conference> Conferences = new ArrayList<Conference>();
+	public static void main(String[] args)
+	{
+		NBA Ob = new NBA();
+		FileReader Fr;
+		BufferedReader Buffer;
+		
+			try {
+				Fr = new FileReader("C:\\Users\\gauthier\\Desktop\\TELECOM\\2A\\VisualisationDonnees\\nba-no-hierarchy.txt");
+				Buffer = new BufferedReader(Fr);
+				String ligne;
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			for(Conference c : Ob.Conferences)
+			{
+				c.print();
+			}
+	}
+}
+class Conference
+{
+	String name;
+	ArrayList<Division> Divisions;
+	public Conference(String name)
+	{
+		this.name = name;
+	}
+	public String print()
+	{
+		return "";
+	}
+}
+class Division
+{
+	String name;
+	ArrayList<Team> Teams;
+	public Division(String name)
+	{
+		this.name = name;
+	}
+}
+class Team
+{
+	String name;
+	ArrayList<Team> Players;
+	public Team(String name)
+	{
+		this.name = name;
+	}
+}
+class Player
+{
+	String name;
+	int score;
+	public Player(String name,int score)
+	{
+		this.name = name;
+		this.score = score;
+	}
+}
+

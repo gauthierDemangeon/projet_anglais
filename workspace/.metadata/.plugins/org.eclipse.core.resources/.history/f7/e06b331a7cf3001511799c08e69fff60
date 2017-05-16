@@ -1,0 +1,15 @@
+class Vehicule {
+	public int getSpeed() { return -1; }
+	}
+class Car extends Vehicule {
+	public int getSpeed() { return 60; }
+	}
+class RaceCar extends Car {
+	public int getSpeed() { return 120; }
+	}
+class Main {
+	public static void main(String[] args) {
+		Vehicule v = new RaceCar();
+		System.out.println("speed="+v.getSpeed());
+		}
+	}

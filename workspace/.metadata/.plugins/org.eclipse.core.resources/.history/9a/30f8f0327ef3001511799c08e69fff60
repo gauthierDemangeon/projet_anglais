@@ -1,0 +1,21 @@
+class Animal {
+	public void eat() throws Exception{
+		System.out.println("eat A");}
+	}
+class Dog extends Animal {
+	public void eat() {
+		System.out.println("eat D");
+		}
+}
+class Main {
+	public static void main(String[] args) {
+		Animal a = new Dog();
+		Dog d = new Dog();
+		try
+		{
+		d.eat();
+		a.eat();
+		}
+		catch(Exception e) {}
+		}
+}

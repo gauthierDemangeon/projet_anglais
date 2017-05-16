@@ -1,0 +1,25 @@
+package View;
+
+import java.awt.*;
+
+import javax.swing.*;
+
+import Model.Model;
+
+public class VuePart1 extends ImagePanel implements Vue {
+
+	Model model;
+	public VuePart1(Model m)
+	{
+		super();
+		model = m;
+		JButton back = new JButton(new ImageIcon ("./images/boutonlogo.png"));
+		JPanel pan = new JPanel();
+		pan.add(back,BorderLayout.AFTER_LINE_ENDS);
+	}
+	public void update() {
+		model.getF().setContentPane(this);
+		model.getF().revalidate();
+	}
+
+}
